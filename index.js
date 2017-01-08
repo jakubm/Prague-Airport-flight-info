@@ -1,11 +1,15 @@
-exports.getFlightsInfo = function(action, callback) {
+exports.getFlightsInfo = function(action, callback, all_flights) {
 
   var http = require('http');
   var cheerio = require('cheerio');
 
   const host = 'www.prg.aero';
-  const pathArival = '/en/flight-info/arrivals-departures/arrivals/';
-  const pathDepartures = '/en/flight-info/arrivals-departures/departures/';
+  let pathArival = '/en/flight-info/arrivals-departures/arrivals/';
+  let pathDepartures = '/en/flight-info/arrivals-departures/departures/';
+  if (all_flights) {
+    pathArival += '?hour=all';
+    pathDepartures += '?hour=all';
+  }
 
   if(action === 'arrivals'){
     objLink = pathArival;
